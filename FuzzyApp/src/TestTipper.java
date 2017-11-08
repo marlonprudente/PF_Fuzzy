@@ -20,7 +20,7 @@ import net.sourceforge.jFuzzyLogic.rule.*;
 public class TestTipper {
     public static void main(String[] args) throws Exception {
         // Load from 'FCL' file
-        String fileName = "C:/Users/btcba/Documents/NetBeansProjects/fuzzyapp/FuzzyApp/src/tipper.fcl";
+        String fileName = "src/tipper.fcl";
         FIS fis = FIS.load(fileName,true);
 
         // Error while loading?
