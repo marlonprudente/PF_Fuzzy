@@ -15,6 +15,7 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
@@ -27,6 +28,7 @@ import org.apache.commons.codec.binary.Base64;
 public class Auth {
 
     public String amx_authorization_header(String funcao) throws MalformedURLException, IOException, InvalidKeyException, NoSuchAlgorithmException {
+        //Definições de funcao, ID e password para acessar a API
         String urlString = "https://broker.negociecoins.com.br/tradeapi/v1/" + funcao;
         String ID = "557bf95117be498c915c0b6816f858f1";
         String pass = "YpsLRaDKBj2DSYmvp3TsXFEAqZPLmyL0/fMK2VrBFdA=";
@@ -41,20 +43,25 @@ public class Auth {
             Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
             SecretKeySpec secret_key = new SecretKeySpec(pass.getBytes(), "HmacSHA256");
             sha256_HMAC.init(secret_key);
-            String basicAuth = Base64.encodeBase64String(userCredentials.getBytes(StandardCharsets.UTF_8));
+            
+            String basicAuth = Base64.encodeBase64String(pass.getBytes(StandardCharsets.UTF_8));
             //userCredentials = ID + ":" + basicAuth;
+            Date epochStart = new Date(0);
+            String requestTimeStamp = "" + ((new Date().getTime() - epochStart.getTime()) / 1000);
+            String nonce = java.util.UUID.randomUUID().toString().replace("-", "");
             System.out.println("Auth = => " + basicAuth);
             
             urlcon.setRequestProperty("User-Agent", "Mozilla/5.0");
-            urlcon.setRequestProperty("Content-Type", "text/plain");
+            urlcon.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             urlcon.setRequestProperty("charset", "UTF-8");
            // urlcon.setRequestProperty("Authorization","Basic " + basicAuth);
-            
+            String header = String.format("amx %s:%s:%s:%s", ID, basicAuth, nonce,requestTimeStamp);
             HttpURLConnection httpcon = (HttpURLConnection) urlcon;
-            httpcon.setRequestProperty("Authorization","Basic " + basicAuth);
-            
             httpcon.setRequestMethod("GET");
-            //System.out.println("=>" + httpcon.getResponseMessage());
+            httpcon.setRequestProperty("Authorization", header);          
+
+            
+
             reader = new BufferedReader(new InputStreamReader(httpcon.getInputStream()));
             StringBuffer buffer = new StringBuffer();
             int read;
