@@ -16,17 +16,17 @@ public class Main {
         Ticker t = new Ticker();
         Orderbook ob = new Orderbook();
         Trades tr = new Trades();
-        Auth auth = new Auth();        
-        auth.amx_authorization_header("user/balance");
-       // Balance b = new Balance();
+        //Auth auth = new Auth();        
+        //auth.amx_authorization_header("user/balance");
+        // Balance b = new Balance();
 
         //serializa para uma string e imprime
-        //System.out.println("Ticker -> " + t.getTicker());
-        //System.out.println("Order Book -> " + ob.getOrderBook());
-        //System.out.println("Trades -> " + tr.getTrades());
+        System.out.println("Ticker -> " + t.getTicker());
+        System.out.println("Order Book -> " + ob.getOrderBook());
+
+
         //System.out.println("======//======");
         //System.out.println("Balance -> " + b.getBalance());
-
     }
 
 }

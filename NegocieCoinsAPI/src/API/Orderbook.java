@@ -6,25 +6,39 @@
 package API;
 
 import static API.LerURL.readUrl;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.Charset;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
  *
- * @author Usuário
+ * @author Marlon Prudente
  */
 public class Orderbook {
 
-    public String getOrderBook() throws Exception {
-        JSONObject orderbook =  new JSONObject(readUrl("https://broker.negociecoins.com.br/api/v3/BTCBRL/ticker"));
-        
-        return orderbook.toString();
+    JSONObject orderbook;
+    JSONArray ask ;
+    JSONArray bid;
+
+    public Orderbook() throws Exception {
+        this.orderbook = new JSONObject(readUrl("https://broker.negociecoins.com.br/api/v3/BTCBRL/orderbook"));
+        this.ask = orderbook.getJSONArray("ask");
+        this.bid = orderbook.getJSONArray("bid");
     }
+
+    public String getOrderBook(){
+        return this.orderbook.toString();
+    }
+    public String getAsk(){
+        return this.ask.toString();
+    }
+    public JSONArray getAskList(){
+        return this.ask;
+    }
+    public String getBid(){
+        return this.bid.toString();
+    }
+    public JSONArray getBidList(){
+        return this.bid;
+    }
+
 }

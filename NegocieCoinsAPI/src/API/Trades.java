@@ -11,14 +11,17 @@ import org.json.JSONObject;
 
 /**
  *
- * @author Usuário
+ * @author Marlon Prudente
  */
 public class Trades {
 
-    public String getTrades() throws Exception {
-        JSONArray trades = new JSONArray(readUrl("https://broker.negociecoins.com.br/api/v3/BTCBRL/trades"));
-        //System.out.println("Tamanho: " + trades.length());
-        
-        return trades.get(0).toString();
+    JSONArray trades;
+
+    public Trades() throws Exception {
+        this.trades = new JSONArray(readUrl("https://broker.negociecoins.com.br/api/v3/BTCBRL/trades"));
+    }
+
+    public JSONArray getTradesList() {
+        return trades;
     }
 }

@@ -14,9 +14,61 @@ import org.json.JSONObject;
  */
 public class Ticker {
 
+    String date = "";
+    String high = "";
+    String vol = "";
+    String last = "";
+    String low = "";
+    String sell = "";
+    String buy = "";
+
+    JSONObject ticker = null;
+
+    public Ticker() throws Exception {
+        this.ticker = new JSONObject(readUrl("https://broker.negociecoins.com.br/api/v3/BTCBRL/ticker"));
+        this.date = ticker.optString("date", "defaultValue");
+        this.high = ticker.optString("high", "defaultValue");
+        this.vol = ticker.optString("vol", "defaultValue");
+        this.last = ticker.optString("last", "defaultValue");
+        this.low = ticker.optString("low", "defaultValue");
+        this.sell = ticker.optString("sell", "defaultValue");
+        this.buy = ticker.optString("buy", "defaultValue");
+    }
+
     public String getTicker() throws Exception {
-        JSONObject ticker =  new JSONObject(readUrl("https://broker.negociecoins.com.br/api/v3/BTCBRL/ticker"));
-        
         return ticker.toString();
+    }
+
+    public String getDate() {
+
+        return this.date;
+    }
+
+    public String getHigh() {
+
+        return this.high;
+    }
+
+    public String getVol() {
+
+        return this.vol;
+    }
+
+    public String getLast() {
+
+        return this.last;
+    }
+
+    public String getLow() {
+
+        return this.low;
+    }
+
+    public String getSell() {
+        return this.sell;
+    }
+
+    public String getBuy() {
+        return this.buy;
     }
 }
