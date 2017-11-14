@@ -16,7 +16,7 @@ import org.json.JSONObject;
 public class Orderbook {
 
     JSONObject orderbook;
-    JSONArray ask ;
+    JSONArray ask;
     JSONArray bid;
 
     public Orderbook() throws Exception {
@@ -25,19 +25,29 @@ public class Orderbook {
         this.bid = orderbook.getJSONArray("bid");
     }
 
-    public String getOrderBook(){
+    public Orderbook(String moeda) throws Exception {
+        this.orderbook = new JSONObject(readUrl("https://broker.negociecoins.com.br/api/v3/" + moeda.toUpperCase() + "BRL/orderbook"));
+        this.ask = orderbook.getJSONArray("ask");
+        this.bid = orderbook.getJSONArray("bid");
+    }
+
+    public String getOrderBook() {
         return this.orderbook.toString();
     }
-    public String getAsk(){
+
+    public String getAsk() {
         return this.ask.toString();
     }
-    public JSONArray getAskList(){
+
+    public JSONArray getAskList() {
         return this.ask;
     }
-    public String getBid(){
+
+    public String getBid() {
         return this.bid.toString();
     }
-    public JSONArray getBidList(){
+
+    public JSONArray getBidList() {
         return this.bid;
     }
 

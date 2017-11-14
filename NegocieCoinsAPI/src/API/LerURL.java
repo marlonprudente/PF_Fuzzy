@@ -9,10 +9,11 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import javax.net.ssl.HttpsURLConnection;
 
 /**
  *
- * @author Usuário
+ * @author Marlon Prudente
  */
 public class LerURL {
 
@@ -20,7 +21,7 @@ public class LerURL {
         BufferedReader reader = null;
         try {
             URL url = new URL(urlString);
-            HttpURLConnection httpcon = (HttpURLConnection) url.openConnection();
+            HttpsURLConnection httpcon = (HttpsURLConnection) url.openConnection();
             httpcon.addRequestProperty("User-Agent", "Mozilla/4.76");
 
             reader = new BufferedReader(new InputStreamReader(httpcon.getInputStream()));

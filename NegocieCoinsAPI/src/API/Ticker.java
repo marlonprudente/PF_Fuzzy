@@ -34,6 +34,16 @@ public class Ticker {
         this.sell = ticker.optString("sell", "defaultValue");
         this.buy = ticker.optString("buy", "defaultValue");
     }
+    public Ticker(String moeda) throws Exception{
+        this.ticker = new JSONObject(readUrl("https://broker.negociecoins.com.br/api/v3/"+moeda.toUpperCase()+"BRL/ticker"));
+        this.date = ticker.optString("date", "defaultValue");
+        this.high = ticker.optString("high", "defaultValue");
+        this.vol = ticker.optString("vol", "defaultValue");
+        this.last = ticker.optString("last", "defaultValue");
+        this.low = ticker.optString("low", "defaultValue");
+        this.sell = ticker.optString("sell", "defaultValue");
+        this.buy = ticker.optString("buy", "defaultValue");
+    }
 
     public String getTicker() throws Exception {
         return ticker.toString();

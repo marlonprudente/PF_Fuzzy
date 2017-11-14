@@ -20,6 +20,9 @@ public class Trades {
     public Trades() throws Exception {
         this.trades = new JSONArray(readUrl("https://broker.negociecoins.com.br/api/v3/BTCBRL/trades"));
     }
+    public Trades(String moeda) throws Exception {
+        this.trades = new JSONArray(readUrl("https://broker.negociecoins.com.br/api/v3/"+moeda.toUpperCase()+"BRL/trades"));
+    }
 
     public JSONArray getTradesList() {
         return trades;
