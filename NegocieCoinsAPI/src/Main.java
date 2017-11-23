@@ -1,4 +1,5 @@
 
+import API.Trade.Authentication;
 import org.json.JSONException;
 import org.json.JSONObject;
 import API.*;

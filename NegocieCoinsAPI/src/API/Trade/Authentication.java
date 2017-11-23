@@ -4,24 +4,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package API;
+package API.Trade;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.TimeZone;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.net.ssl.HttpsURLConnection;
 import static org.apache.commons.codec.binary.Base64.*;
-import org.json.JSONObject;
 
 /**
  *
@@ -33,16 +29,13 @@ public class Authentication {
     private static String computeSignature(String data, String secret) throws Exception {
 
         SecretKey secretKey = null;
-
         byte[] keyBytes = decodeBase64(secret);
         secretKey = new SecretKeySpec(keyBytes, "HmacSHA256");
-
         Mac mac = Mac.getInstance("HmacSHA256");
-
+        
         mac.init(secretKey);
 
         byte[] text = data.getBytes();
-
         return new String(encodeBase64(mac.doFinal(text))).trim();
     }
 
