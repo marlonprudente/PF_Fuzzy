@@ -24,6 +24,7 @@ public class HttpNegocieCoins {
         String urlMethod = privateUrl + function;
         String urlEncoded = URLEncoder.encode(urlMethod, "UTF-8").toLowerCase();
         String timeStamp = String.valueOf(System.currentTimeMillis());
+        System.out.println("timeStamp: " + timeStamp);
         /**
          * java.util.Date currentTime = new java.util.Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy:MM:dd:hh:mm:ss");    

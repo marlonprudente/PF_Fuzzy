@@ -17,8 +17,9 @@ public class Main {
         Ticker t2 = new Ticker("ltc");
         Orderbook ob = new Orderbook();
         Trades tr = new Trades();
-        Auth auth = new Auth();        
-        auth.amx_authorization_header("user/balance");
+        Authentication auth = new Authentication();        
+        String resultado = auth.Balance("557bf95117be498c915c0b6816f858f1", "YpsLRaDKBj2DSYmvp3TsXFEAqZPLmyL0/fMK2VrBFdA=", "user/balance", "");
+        System.out.println("Resultado: " + resultado);
         // Balance b = new Balance();
 
         //serializa para uma string e imprime
