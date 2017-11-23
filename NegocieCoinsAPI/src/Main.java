@@ -1,10 +1,7 @@
 
 import API.Trade.Authentication;
 import org.json.JSONException;
-import org.json.JSONObject;
 import API.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 /**
  *

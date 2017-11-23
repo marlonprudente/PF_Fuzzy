@@ -7,7 +7,6 @@ package API;
 
 import static API.LerURL.readUrl;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  *
