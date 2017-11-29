@@ -15,9 +15,9 @@ VAR_OUTPUT				// Define output variable
 END_VAR
 
 FUZZIFY valor_investimento			// Fuzzify input variable 'service': {'poor', 'good' , 'excellent'}
-	TERM desvalorizado := (-100, 1)(-50,1)(0, 0) ; 
-	TERM neutro := (-50, 0) (0,1) (50,0);
-	TERM valorizado := (0, 0) (50, 1) (100,1);
+	TERM desvalorizado := (-1, 1)(-0.5,1)(0, 0) ; 
+	TERM neutro := (-0.5, 0) (0,1) (0.5,0);
+	TERM valorizado := (0, 0) (0.5, 1) (1,1);
 END_FUZZIFY
 
 FUZZIFY valor_exchange			// Fuzzify input variable 'food': { 'rancid', 'delicious' }
@@ -26,9 +26,9 @@ FUZZIFY valor_exchange			// Fuzzify input variable 'food': { 'rancid', 'deliciou
 END_FUZZIFY
 
 DEFUZZIFY decisao			// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
-	TERM vender := (-100,0) (-50,1) (0,0);
-	TERM manter := (-50,0) (0,1) (50,0);
-	TERM comprar := (0,0) (50,1) (100,0);
+	TERM vender := (-1,0) (-0.5,1) (0,0);
+	TERM manter := (-0.5,0) (0,1) (0.5,0);
+	TERM comprar := (0,0) (0.5,1) (1,0);
 	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
 	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
 END_DEFUZZIFY

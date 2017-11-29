@@ -33,7 +33,7 @@ public class Main {
         JFuzzyChart.get().chart(fis);
 
         // Set inputs
-        fis.setVariable("valor_investimento", -50);
+        fis.setVariable("valor_investimento", -0.5);
         fis.setVariable("valor_exchange", -1);
 
         // Evaluate
