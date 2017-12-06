@@ -20,7 +20,7 @@ import net.sourceforge.jFuzzyLogic.rule.*;
 public class Main {
     public static void main(String[] args) throws Exception {
         // Load from 'FCL' file
-        String fileName = "src/tipper_exchange.fcl";
+        String fileName = "src/tipper_arbitragem.fcl";
         FIS fis = FIS.load(fileName,true);
 
         // Error while loading?
@@ -33,14 +33,16 @@ public class Main {
         JFuzzyChart.get().chart(fis);
 
         // Set inputs
-        fis.setVariable("valor_investimento", -0.5);
+        fis.setVariable("valor_mercado", -0.5);
         fis.setVariable("valor_exchange", -1);
 
         // Evaluate
         fis.evaluate();
 
         // Show output variable's chart
-        Variable tip = fis.getVariable("decisao");
+        //fis.getVariable("decisao").getLatestDefuzzifiedValue();
+        Variable tip = fis.getVariable("decisao");        
+
         JFuzzyChart.get().chart(tip, tip.getDefuzzifier(), true);
 
         // Print ruleSet

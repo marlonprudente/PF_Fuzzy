@@ -1,0 +1,56 @@
+/*
+	Example: A tip calculation FIS (fuzzy inference system)
+	Calculates tip based on 'Valorização do Investimento' and 'Valorização da Exchange'									
+*/
+
+FUNCTION_BLOCK bitcoin	// Block definition (there may be more than one block per file)
+
+VAR_INPUT				// Define input variables
+	valor_mercado : REAL;
+	valor_exchange : REAL;
+END_VAR
+
+VAR_OUTPUT				// Define output variable
+	decisao : REAL;
+END_VAR
+
+FUZZIFY valor_mercado			// Fuzzify input variable 'service': {'poor', 'good' , 'excellent'}
+	TERM desvalorizado := (-1, 1)(-0.5,1)(0, 0) ; 
+	TERM neutro := (-0.5, 0) (0,1) (0.5,0);
+	TERM valorizado := (0, 0) (0.5, 1) (1,1);
+END_FUZZIFY
+
+FUZZIFY valor_exchange			// Fuzzify input variable 'food': { 'rancid', 'delicious' }
+	TERM alto := (-1, 1) (-0.1, 1) (0,0);
+        TERM medio := (-0.1, 0) (0,1) (0.5,0);
+	TERM baixo := (0, 0) (0.5, 1) (1,1);
+END_FUZZIFY
+
+DEFUZZIFY decisao			// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
+	TERM vender := (-1,0) (-0.5,1) (0,0);
+	TERM manter := (-0.5,0) (0,1) (0.5,0);
+	TERM comprar := (0,0) (0.5,1) (1,0);
+	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+END_DEFUZZIFY
+
+RULEBLOCK No1
+	AND : MIN;			// Use 'min' for 'and' (also implicit use 'max' for 'or' to fulfill DeMorgan's Law)
+	ACT : MIN;			// Use 'min' activation method
+	ACCU : MAX;			// Use 'max' accumulation method
+
+	RULE 1 : IF valor_mercado IS valorizado AND valor_exchange IS alto THEN decisao IS manter;
+	RULE 2 : IF valor_mercado IS neutro AND valor_exchange IS alto THEN decisao IS vender;
+        RULE 3 : IF valor_mercado IS desvalorizado AND valor_exchange IS alto THEN decisao IS vender;
+
+	RULE 4 : IF valor_mercado IS valorizado AND valor_exchange IS medio THEN decisao IS comprar;
+        RULE 5 : IF valor_mercado IS neutro AND valor_exchange IS medio THEN decisao IS manter;
+        RULE 6 : IF valor_mercado IS desvalorizado AND valor_exchange IS medio THEN decisao IS vender;
+
+        RULE 7 : IF valor_mercado IS valorizado AND valor_exchange IS baixo THEN decisao IS comprar;
+        RULE 8 : IF valor_mercado IS neutro AND valor_exchange IS baixo THEN decisao IS comprar;
+        RULE 9 : IF valor_mercado IS desvalorizado AND valor_exchange IS baixo THEN decisao IS manter;
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
